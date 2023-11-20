@@ -10,27 +10,18 @@
 #include <json/json.h>
 
 // Include the necessary headers for modala.js
-#include <emscripten.h>
+
 #include <emscripten/bind.h>
 #include <emscripten/val.h>
 #include <emscripten/fetch.h>
 
+#ifdef __EMSCRIPTEN__
+#include <emscripten.h>
+#endif
+
 using namespace std;
 
-string path = "";
-
-EM_ASM( {
-        fetch(path)
-            .then(response => response.text())
-            .then(data => {
-                // Handle the response from the PHP script
-                console.log(data);
-            })
-            .catch(error => {
-                // Handle any errors
-                console.error(error);
-            });
-    }, path);
+string path_path = "";
 
 // Function to iterate through form elements and create JSON
 Json::Value createFormJSON()
